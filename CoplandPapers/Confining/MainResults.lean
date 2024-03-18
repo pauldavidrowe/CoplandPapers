@@ -128,8 +128,7 @@ lemma cor_between_regular_corrupt {e1 e2 : E.Evt} (lt : e1 < e2)
           · simp; constructor;
             · simp; rw [h2]; exact ⟨AdvLab.cevt, ao⟩
             · exact h2'
-          observe g2 : ard c e1 ≠ ∅
-          observe g3 : Relevant c e1 
+          have g2 : ard c e1 ≠ ∅ := Finset.ne_empty_of_mem g1
           have g4 : ∀ e'', e'' ∈ ard c e1 → e'' ≤ e' 
           · intro e'' mem' 
             have lt' := down_of_ard e'' mem'
@@ -141,7 +140,7 @@ lemma cor_between_regular_corrupt {e1 e2 : E.Evt} (lt : e1 < e2)
             exact h3 al
           -- We finally obtain e' is the maximum element
           -- of ard c e1.
-          replace g1 := (max_adv_def g3 g2).2 ⟨g1, g4⟩
+          replace g1 := (max_adv_def r1 g2).2 ⟨g1, g4⟩
           
           -- We then need to show that e' is max_adv c e2 as well
           have f0 : e' < e2 := lt_trans ao lt
@@ -151,8 +150,7 @@ lemma cor_between_regular_corrupt {e1 e2 : E.Evt} (lt : e1 < e2)
               · simp; rw [h2]; exact AdvLab.cevt 
               · exact f0
             · exact h2' 
-          observe f2 : ard c e2 ≠ ∅
-          observe f3 : Relevant c e2
+          have f2 : ard c e2 ≠ ∅ := Finset.ne_empty_of_mem f1 
           have f4 : ∀ e'', e'' ∈ ard c e2 → e'' ≤ e'
           · intro e'' mem'
             have lt' := down_of_ard e'' mem' 
@@ -163,10 +161,10 @@ lemma cor_between_regular_corrupt {e1 e2 : E.Evt} (lt : e1 < e2)
             apply components_of_adv_lab rc at al
             exact h3 al 
           -- Finally e' is max_adv c e2
-          replace f1 := (max_adv_def f3 f2).2 ⟨f1, f4⟩
+          replace f1 := (max_adv_def r2 f2).2 ⟨f1, f4⟩
           
-          have j1 := cs_max_adv_of_msp g3 g2 msp
-          have j2 := cs_max_adv_of_msp f3 f2 m
+          have j1 := cs_max_adv_of_msp r1 g2 msp
+          have j2 := cs_max_adv_of_msp r2 f2 m
           rw [f1] at *; rw [g1] at *
           rw [←j2] at j1
           rw [cs1, cs2] at j1 
@@ -220,7 +218,7 @@ lemma rep_between_corrupt_regular {e1 e2 : E.Evt} (lt : e1 < e2)
           exact ⟨AdvLab.cevt, (lt_of_le_of_lt h1 lt)⟩
         · simp; exact Relevant.adv_c h2
       -- so ard c e2 is nonempty.
-      observe a' : ard c e2 ≠ ∅
+      have a' : ard c e2 ≠ ∅ := Finset.ne_empty_of_mem a 
       -- c is Relevant to e' because it was in ard c e2.
       have _ := rel_of_ard a
       -- Thus we can set m to be the max of ard c e2.
@@ -311,7 +309,7 @@ lemma rep_between_corrupt_regular {e1 e2 : E.Evt} (lt : e1 < e2)
             have j : m' ∈ ard c e2
             · simp; constructor
               · constructor
-                · rw [max_m']; exact adv_lab_of_max_adv r1 ne
+                · exact adv_lab_of_max_adv r1 ne
                 · have lt' := lt_of_max_adv r1 ne
                   rw [←max_m'] at lt'; exact lt_trans lt' lt
               · exact relevant_of_max_adv r1 ne

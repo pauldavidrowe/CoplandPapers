@@ -159,7 +159,7 @@ cs c e = regular ∨ cs c e = corrupt := by
       unfold cs; dsimp
       rw [lab]; dsimp
       rw [dif_pos r] 
-      by_cases a1 : Set.Finite.toFinset (_ : Set.Finite (adv_relevant_down c e)) = ∅
+      by_cases a1 : Set.Finite.toFinset (fin_adv_rel_down c e : Set.Finite (adv_relevant_down c e)) = ∅
       · left; dsimp; rw [dif_pos a1]
       · rw [dif_neg a1] 
         have a2 := cor_or_rep_c_of_max_adv r a1
@@ -173,7 +173,7 @@ cs c e = regular ∨ cs c e = corrupt := by
     | inl h1 => 
       unfold cs; dsimp; rw [lab]; dsimp 
       rw [dif_pos r]; 
-      by_cases a1 : Set.Finite.toFinset (_ : Set.Finite (adv_relevant_down c e)) = ∅
+      by_cases a1 : Set.Finite.toFinset (fin_adv_rel_down c e : Set.Finite (adv_relevant_down c e)) = ∅
       · rw [dif_pos a1]; simp
       · rw [dif_neg a1] 
         have a2 := cor_or_rep_c_of_max_adv r a1
@@ -187,7 +187,7 @@ cs c e = regular ∨ cs c e = corrupt := by
     | inl h1 => 
       unfold cs; dsimp; rw [lab.1]; dsimp 
       rw [dif_pos r]; 
-      by_cases a1 : Set.Finite.toFinset (_ : Set.Finite (adv_relevant_down c e)) = ∅
+      by_cases a1 : Set.Finite.toFinset (fin_adv_rel_down c e : Set.Finite (adv_relevant_down c e)) = ∅
       · rw [dif_pos a1]; simp
       · rw [dif_neg a1] 
         have a2 := cor_or_rep_c_of_max_adv r a1

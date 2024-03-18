@@ -158,7 +158,7 @@ e1 < e2 → f e1 < f e2 := by
 
 /- 
   We introduce some facts about cardinality to help help 
-  show that two lpos are isomorphis when there are homomorphisms
+  show that two lpos are isomorphic when there are homomorphisms
   in both directions. 
 -/
 lemma card_le_of_lpo_le {l1 l2 : LPO lab} 
@@ -178,8 +178,8 @@ Fintype.card { p : l1.t × l1.t | p.1 < p.2 } ≤
   have hF' : Injective F'
   · intro p1 p2 eq; rw [Fdef'] at eq; simp at eq
     ext
-    apply f_inj; tauto
-    apply f_inj; tauto
+    · apply f_inj; aesop 
+    · apply f_inj; aesop 
   apply Fintype.card_le_of_injective F' hF'
 
 lemma card_eq_of_lpo_le_le {l1 l2 : LPO lab} 
@@ -211,13 +211,13 @@ Fintype.card { p : l2.t × l2.t | p.1 < p.2 } := by
   have F_inj : Injective F
   · intro p1 p2 eq; rw [Fdef'] at eq; simp at eq
     ext
-    apply f_inj; tauto
-    apply f_inj; tauto
+    apply f_inj; aesop 
+    apply f_inj; aesop 
   have F_nsurj : ¬Surjective F
   · intro F_surj 
     specialize F_surj ⟨(f1 e1, f1 e2), lt2⟩
     cases' F_surj with a Feq
-    rw [Fdef'] at Feq; simp at Feq
+    rw [Fdef'] at Feq; simp [F'] at Feq
     cases' Feq with Feq1 Feq2
     replace Feq1 := hf1.2.2 Feq1
     replace Feq2 := hf1.2.2 Feq2

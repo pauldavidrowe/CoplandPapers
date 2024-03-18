@@ -147,8 +147,8 @@ Fintype.card { p : E2.Evt × E2.Evt | p.1 < p.2 } := by
   have hF' : Injective F'
   · intro p1 p2 eq; rw [Fdef'] at eq; simp at eq
     ext
-    apply f_inj; tauto
-    apply f_inj; tauto
+    apply f_inj; aesop 
+    apply f_inj; aesop 
   apply Fintype.card_le_of_injective F' hF'
 
 lemma card_eq_of_exec_le_le {E1 E2 : Exec} 
@@ -178,13 +178,13 @@ Fintype.card { p : E2.Evt × E2.Evt | p.1 < p.2 } := by
   have F_inj : Injective F
   · intro p1 p2 eq; rw [Fdef'] at eq; simp at eq
     ext;
-    apply f_inj; tauto
-    apply f_inj; tauto
+    apply f_inj; aesop 
+    apply f_inj; aesop 
   have F_nsurj : ¬Surjective F
   · intro F_surj; unfold Surjective at F_surj
     specialize F_surj ⟨(f1 e1, f1 e2), lt2⟩
     obtain ⟨a, Feq⟩ := F_surj
-    rw [Fdef'] at Feq; simp at Feq
+    rw [Fdef'] at Feq; simp [F'] at Feq
     obtain ⟨Feq1, Feq2⟩ := Feq
     replace Feq1 := hf1.2.2.2.1 Feq1
     replace Feq2 := hf1.2.2.2.1 Feq2
@@ -796,7 +796,7 @@ lemma min_covers (q : Query) {q'} (mem : q' ∈ R q) :
   set leq' := { x ∈ (R q) | x ≤ q'} with hl
   have lqwf : leq'.IsWF
   · apply Set.WellFoundedOn.subset swf
-    intro x hx; simp at hx; exact hx.1
+    intro x hx; exact hx.1 
   have mem' : q' ∈ leq'; rw [hl]; simp [R] at mem ⊢; tauto
   have ne : leq'.Nonempty := Set.nonempty_of_mem mem'
   set qm := Set.IsWF.min lqwf ne with hqm
@@ -810,7 +810,7 @@ lemma min_covers (q : Query) {q'} (mem : q' ∈ R q) :
     · simp at qm_min; rw [←hqm] at qm_min; exact qm_min.1
     · intro b bmem le
       have bleq : b ∈ leq'
-      · simp; use bmem; exact le_trans le qmle
+      · use bmem; exact le_trans le qmle 
       have bnlt := Set.IsWF.not_lt_min lqwf ne bleq
       by_contra h
       change b ≤ qm at le

@@ -133,7 +133,8 @@ lemma transfer_le (p : Place) {c : Copland} :
           exact hg.1 le
       constructor 
       · intro p1; cases p1 <;> simp; 
-        rw [hf.2.1]; rw [hg.2.1]
+        · rw [hf.2.1]; simp [fg]
+        · rw [hg.2.1]; simp [fg]
       · intro p1 p2 eq
         cases p1 <;> cases p2
         · simp [hfg] at eq
