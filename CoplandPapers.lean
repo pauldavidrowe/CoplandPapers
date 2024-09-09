@@ -13,3 +13,5 @@ import CoplandPapers.OnOrderings.OrderDefs
 import CoplandPapers.OnOrderings.QLPO
 import CoplandPapers.OnOrderings.Supports
 import CoplandPapers.PPDP.Chase
+import CoplandPapers.Tampering.Preamble
+import CoplandPapers.Tampering.Index
